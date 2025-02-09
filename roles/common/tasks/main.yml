@@ -1,0 +1,57 @@
+---
+- name: Configure All
+  hosts: all
+  gather_facts: false
+  become: true
+  vars:
+    user: baptiste
+    tz: Europe/Paris
+  tasks:
+    - name: Set timezone
+      become: true
+      community.general.timezone:
+        name: "{{ tz }}"
+        hwclock: UTC
+
+    - name: Create common user
+      ansible.builtin.user:
+        name: "{{ user }}"
+        shell: /bin/bash
+        password_lock: true
+
+    - name: Set authorized keys for user
+      ansible.posix.authorized_key:
+        user: { { user } }
+        state: present
+        key: https://github.com/baptistedeporte.keys
+
+    - name: Make user sudoers
+      community.general.sudoers:
+        name: "{{ user }}"
+        user: "{{ user }}"
+        nopassword: true
+        commands: ALL
+
+    - name: Ensure PasswordAuthentication is disabled in SSH config
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^PasswordAuthentication"
+        line: "PasswordAuthentication no"
+        state: present
+
+    - name: Disable root login over SSH
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^PermitRootLogin"
+        line: "PermitRootLogin no"
+        state: present
+
+    - name: Test SSH configuration before restarting
+      ansible.builtin.command:
+        cmd: sshd -t
+      changed_when: false
+
+    - name: Restart SSH service
+      ansible.builtin.service:
+        name: ssh
+        state: restarted

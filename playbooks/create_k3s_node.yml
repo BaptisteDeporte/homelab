@@ -1,0 +1,15 @@
+- name: Create k3s node
+  community.general.proxmox_kvm:
+    api_user: root@pam
+    api_password: secret
+    api_host: helldorado
+    name: k3s-node-01
+    node: sabrewulf
+    net:
+      net0: "virtio,bridge=vmbr1,rate=200"
+    virtio:
+      virtio0: "VMs_LVM:10"
+      virtio1: "VMs:2,format=qcow2"
+      virtio2: "VMs:5,format=raw"
+    cores: 2
+    vcpus: 1
