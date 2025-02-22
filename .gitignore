@@ -1,1 +1,10 @@
+# Terraform
+*.tfstate
+*.tfstate.*
+.env*
+!.env.dist
+.terraform
+
+# Other
+.vscode
 .DS_Store
