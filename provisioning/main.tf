@@ -15,6 +15,10 @@ variable "pve_token" {
   type = string
 }
 
+variable "vm_ip" {
+  type = string
+}
+
 provider "proxmox" {
   endpoint  = var.pve_url
   api_token = var.pve_token
@@ -55,8 +59,12 @@ resource "proxmox_virtual_environment_vm" "k3s-node" {
   stop_on_destroy = true
 
   cpu {
-    cores = 1
+    cores = 2
     type  = "x86-64-v2-AES"
+  }
+
+  memory {
+    dedicated = 2048
   }
 
   serial_device {
@@ -66,7 +74,8 @@ resource "proxmox_virtual_environment_vm" "k3s-node" {
   initialization {
     ip_config {
       ipv4 {
-        address = "dhcp"
+        address = var.vm_ip
+        gateway = "192.168.1.1"
       }
     }
 
