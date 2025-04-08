@@ -1,5 +1,7 @@
 # homelab
 
+Dedicated to maintaining my homelab (and learning new things in the process).
+
 ## Provisioning
 
 Use terraform. Go to provisioning folder and do
