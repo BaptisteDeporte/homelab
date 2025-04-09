@@ -5,6 +5,12 @@
 !.env.dist
 .terraform
 
+# Ansible
+.ansible
+
+# Python
+venv
+
 # Other
 .vscode
 .DS_Store
