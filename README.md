@@ -10,10 +10,12 @@ Use terraform. Go to provisioning folder and do
 terraform apply --auto-approve
 ```
 
-## Deploying
+## Configuring
 
-Use ansible. Go to root folder and do
+Use ansible. Go to configuration folder and do
 
 ```sh
-ansible-playbook k3s.orchestration.site -i inventory/inventory.yml
+pip install -r requirements.txt
+ansible-galaxy collection install -r requirements.yaml
+ansible-playbook playbooks/k3s-server.yaml -i inventory/inventory.yml
 ```
