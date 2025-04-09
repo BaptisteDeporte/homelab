@@ -1,0 +1,13 @@
+- name: Packages management
+  hosts: server
+  tasks:
+    - name: Ensure core packages are installed
+      become: true
+      ansible.builtin.pip:
+        name:
+          # required by helm
+          - pyyaml
+          - kubernetes
+        virtualenv: "/opt/venv"
+      vars:
+        ansible_python_interpreter: "/usr/bin/python3"
