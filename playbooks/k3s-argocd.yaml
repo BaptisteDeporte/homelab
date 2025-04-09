@@ -1,0 +1,16 @@
+---
+- name: Traefik management
+  hosts: server
+  tasks:
+    - name: Add argocd chart repo
+      kubernetes.core.helm_repository:
+        name: argo
+        repo_url: "https://argoproj.github.io/argo-helm"
+
+    - name: Deploy traefik
+      kubernetes.core.helm:
+        name: argocd
+        chart_ref: argo/argo-cd
+        chart_version: 3.35.4
+        release_namespace: argocd
+        create_namespace: true

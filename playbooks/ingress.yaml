@@ -1,5 +1,0 @@
-- name: Dummy task
-  hosts: server
-  tasks:
-    - name: Ping
-      ansible.builtin.ping:
