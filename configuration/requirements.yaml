@@ -1,0 +1,6 @@
+---
+collections:
+  - name: git+https://github.com/k3s-io/k3s-ansible.git
+    type: git
+    version: 1.0.0
+  - kubernetes.core

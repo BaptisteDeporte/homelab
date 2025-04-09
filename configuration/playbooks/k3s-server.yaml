@@ -1,0 +1,9 @@
+---
+- name: Setup K3S nodes
+  ansible.builtin.import_playbook: k3s.orchestration.site
+
+- name: Setup K3S server
+  hosts: server
+  roles:
+    - helm
+    - core_charts
