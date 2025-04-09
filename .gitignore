@@ -5,6 +5,9 @@
 !.env.dist
 .terraform
 
+# Ansible
+.ansible
+
 # Python
 venv
 
