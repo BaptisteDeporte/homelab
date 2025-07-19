@@ -1,0 +1,10 @@
+cert-manager:
+  global:
+    commonLabels:
+      app.kind: core
+    rbac:
+      create: true
+  crds:
+    enabled: true
+  extraEnv:
+    TZ: Europe/Paris
