@@ -7,4 +7,5 @@ cert-manager:
   crds:
     enabled: true
   extraEnv:
-    - TZ: Europe/Paris
+    - name: TZ
+      value: Europe/Paris
